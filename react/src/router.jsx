@@ -3,20 +3,42 @@ import Login from "./pages/Login";
 import Users from './pages/Users';
 import SignUp from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
+import DefaultLayout from "./components/DefaultLayout";
+import GuestLayout from "./components/GuestLayout";
+import Dashboard from "./pages/Dashboard";
 
 const routes = [
     {
-        path: "/login",
-        element: <Login />,
+        path: '/',
+        element: <DefaultLayout/>,
+        children: [
+            {
+                path: "/users",
+                element: <Users />,
+            },
+            {
+                path: "/dashboard",
+                element: <Dashboard />,
+            },
+        ]
     },
     {
-        path: "/users",
-        element: <Users />,
+        path: '/',
+        element: <GuestLayout/>,
+        children: [
+      
+            {
+                path: "/signup",
+                element: <SignUp />,
+            },
+            {
+                path: "/login",
+                element: <Login />,
+            }
+        ]
     },
-    {
-        path: "/signup",
-        element: <SignUp />,
-    },
+ 
+
     {
         path: '*',
         element: <NotFound/>
