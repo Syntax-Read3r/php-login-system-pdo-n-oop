@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-const defaultValue = {
+let defaultValue = {
     user: null,
     token: null,
     setUser: () => {},
