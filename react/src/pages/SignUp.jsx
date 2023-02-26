@@ -10,7 +10,8 @@ const onSubmit = (e) => {
 
 
   return (
-  
+    <div className="login-signup-form animated fadeInDown">
+            <div className="form">
                 <form onSubmit={onSubmit}>
                   <h1 className="title">Signup for free</h1>
                     <input type="text" placeholder="Full Name" />
@@ -22,6 +23,7 @@ const onSubmit = (e) => {
                       Already Regestired? <Link to="/login">Sign in</Link>
                     </p>
                 </form>
-   
+            </div>
+        </div>
   )
 }
