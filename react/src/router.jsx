@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Users from './pages/Users';
 import SignUp from "./pages/SignUp";
@@ -12,6 +12,10 @@ const routes = [
         path: '/',
         element: <DefaultLayout/>,
         children: [
+            {
+                path: '/',
+                element: <Navigate to="/users"/>
+            },
             {
                 path: "/users",
                 element: <Users />,
@@ -37,8 +41,6 @@ const routes = [
             }
         ]
     },
- 
-
     {
         path: '*',
         element: <NotFound/>
