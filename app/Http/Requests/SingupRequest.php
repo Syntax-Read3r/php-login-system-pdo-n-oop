@@ -25,7 +25,7 @@ class SingupRequest extends FormRequest
         return [
             // name is required and is a string with a max num of 55.
             'name' => 'required|string|max:55',
-            // email must be unique in the users' email field. rule name(unique): tableName(users) and columnName(email)
+            // email must be unique in the users' email field. rule name(unique): tableName(users) and columnName()
             'email' => 'required|email|unique:users,email',
             'password' => [
                 'required',
