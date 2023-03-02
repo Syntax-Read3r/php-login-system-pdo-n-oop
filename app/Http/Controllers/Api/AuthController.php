@@ -39,7 +39,7 @@ class AuthController extends Controller
         if(!Auth::attempt($credentials)) {
             return response([
                 'message' => 'Provided email address or password is incorrect'
-            ]);
+            ], 422);
         }
 // Without the below syntax, the createToken method comes out as undefined.
         /** @var User $user **/

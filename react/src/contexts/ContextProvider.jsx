@@ -13,9 +13,10 @@ const StateContext = createContext(defaultValue);
 export const ContextProvider = ({children}) => {
     
     const [user, setUser] = useState({
-        name: 'Munya'
+        
     });
-    const [token, _setToken] = useState(null);
+    // Enables authorisation/(remain login) when page is reloaded
+    const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));
 
     const setToken = (token) => {
         _setToken(token)

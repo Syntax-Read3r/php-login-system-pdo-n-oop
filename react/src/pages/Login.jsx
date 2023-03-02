@@ -27,8 +27,13 @@ export default function login() {
 
                 // 422 is a validation error
                 if (response && response.status === 422) {
-                    console.log(response.data.errors);
-                    setErrors(response.data.errors);
+                    if(response.data.errors) {
+                        setErrors(response.data.errors)
+                    } else {
+                        setErrors({
+                            email: [response.data.message],
+                        })
+                    }
                 }
             });
     };
