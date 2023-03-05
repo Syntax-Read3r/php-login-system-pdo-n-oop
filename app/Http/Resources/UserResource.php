@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,18 +15,16 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $createdAt = $this->create_at;
-        $formattedCreatedAt = null;
     
-        if ($createdAt !== null) {
-            $formattedCreatedAt = $createdAt->format('Y-m-d H:i:s');
-        }
+            $date_string = '2022-03-01 10:30:00';
+            $datetime = new DateTime($date_string);
+            $formattedCreatedAt = $datetime->format('Y-m-d H:i:s');
     
         return [
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'create_at' => $formattedCreatedAt,
+            'create_at' => $this->$formattedCreatedAt,
         ];
     }
     
