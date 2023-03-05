@@ -14,12 +14,19 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $createdAt = $this->create_at;
+        $formattedCreatedAt = null;
+    
+        if ($createdAt !== null) {
+            $formattedCreatedAt = $createdAt->format('Y-m-d H:i:s');
+        }
+    
         return [
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'create_at' => $this->create_at->format('Y-m-d H:i:s'),
-
+            'create_at' => $formattedCreatedAt,
         ];
     }
+    
 }

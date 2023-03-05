@@ -11,15 +11,20 @@ export default function Users() {
 
     const getUsers = () => {
         setLoading(true);
-        axiosClient
+        try {
+            axiosClient
             .get("/users")
-            .then(({ data }) => {
+            .then(({data}) => {
                 setLoading(false); //when the response is received
                 console.log(data);
             })
-            .catch(() => {
+            .catch((e) => {
                 setLoading(false);
+                console.log('failed to getUsers', e.response.data);
             });
+        } catch (error) {
+            console.error(error.response.data)
+        }
     };
 
     return <div>Users</div>;
