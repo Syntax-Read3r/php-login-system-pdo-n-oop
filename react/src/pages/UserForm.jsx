@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axiosClient from "../axios-client";
 
 export default function UserForm() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState(null);
     const [user, setUser] = useState({
@@ -21,7 +22,6 @@ export default function UserForm() {
                 .get(`/users/${id}`)
                 .then(({ data }) => {
                     setLoading(false);
-                    debugger;
                     setUser(data);
                 })
                 .catch((e) => {
@@ -33,6 +33,41 @@ export default function UserForm() {
 
     const onSubmit = (e) => {
         e.preventDefault();
+        if (user.id) {
+            console.log('i m here 1');
+
+            axiosClient
+                .put(`/users/${user.id}`, user)
+                .then(() => {
+                    //TODO show notification
+                    navigate("/users");
+                })
+                .catch((error) => {
+                    console.error('empty',error);
+                    console.log('failed to reach if and update', error);
+                    // const response = error.response;
+                    // if (response && response.status === 422) {
+                    //     console.log('failed to update',response.data.errors);
+                    //     setErrors(response.data.errors);
+                    // }
+                });
+        } else {
+            console.log('i m here 2');
+            axiosClient
+            .post(`/users`, user)
+            .then(() => {
+                //TODO show notification
+                navigate("/users");
+            })
+            .catch((error) => {
+                const response = error.response;
+                if (response && response.status === 422) {
+                    console.log('failed to create',response.data.errors);
+
+                    setErrors(response.data.errors);
+                }
+            });
+        }
     };
     return (
         <>
@@ -76,7 +111,10 @@ export default function UserForm() {
                         />
                         <input
                             onChange={(e) =>
-                                setUser({ ...user, password_confirmation: e.target.value })
+                                setUser({
+                                    ...user,
+                                    password_confirmation: e.target.value,
+                                })
                             }
                             type="password"
                             placeholder="Password Confirmation"
