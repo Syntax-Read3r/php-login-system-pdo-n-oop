@@ -3,8 +3,10 @@ import { createContext, useContext, useState } from "react";
 let defaultValue = {
     user: null,
     token: null,
+    notificaton: null,
     setUser: () => {},
-    setToken: () => {}
+    setToken: () => {},
+    setNotification: () => {}
 
 };
 
@@ -17,6 +19,14 @@ export const ContextProvider = ({children}) => {
     });
     // Enables authorisation/(remain login) when page is reloaded
     const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));
+    const [notification, _setNotification] = useState('')
+
+    const setNotification = (message) => {
+        _setNotification(message);
+        setTimeout(() => {
+            _setNotification('')
+        }, 5000);
+    }
 
     const setToken = (token) => {
         _setToken(token)
@@ -33,7 +43,9 @@ export const ContextProvider = ({children}) => {
             user,
             token,
             setUser,
-            setToken
+            setToken,
+            notification,
+            setNotification
         }}>
             {children}
         </StateContext.Provider>
