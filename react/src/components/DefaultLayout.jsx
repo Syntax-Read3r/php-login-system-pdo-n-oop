@@ -6,9 +6,7 @@ import { useStateContext } from "../contexts/ContextProvider";
 export default function DefaultLayout() {
     // take out the setUser from the stateContext
     const { user, token, notification, setUser, setToken } = useStateContext();
-    const mynya = {
-        sdfs: adsfa,
-    };
+  
 
     // check if the token not exist --  If it does not exist. The user does not have permission to access the page and is redirected to login page.
     // Anything that is part of the defaultLayout cannot be accessed if (!token)
